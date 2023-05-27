@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import SectionContainer from "../SectionContainer";
 
 import { Button, Flex, Text } from "@chakra-ui/react";
+import WaveformView from "./WaveFormView";
 const WaveForm = () => {
   const urls = {
     1: {
@@ -22,9 +23,13 @@ const WaveForm = () => {
     },
   };
 
-  const [url, setUrl] = useState({});
+  const [url, setUrl] = useState({
+    audioUrl: "07030039.mp3",
+    audioContentType: "audio/mpeg",
+    waveformDataUrl: "07030039.dat",
+  });
 
-  console.log(url);
+  console.log(url.audioUrl);
 
   function handleSelectedAudioChange(evt) {
     const e = Number(evt);
@@ -89,14 +94,13 @@ const WaveForm = () => {
           borderColor={"brandDarkGray"}
           borderRadius={"24px"}
           mb={"1rem"}
-        ></Flex>
-        <Flex
-          h={"100px"}
-          w={"100%"}
-          border={"2px"}
-          borderColor={"brandDarkGray"}
-          borderRadius={"24px"}
-        ></Flex>
+        >
+          <WaveformView
+            audioUrl={url.audioUrl}
+            audioContentType={url.audioContentType}
+            waveformDataUrl={url.waveformDataUrl}
+          />
+        </Flex>
       </Flex>
     </SectionContainer>
   );
