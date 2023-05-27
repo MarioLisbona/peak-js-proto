@@ -37,32 +37,27 @@ const WaveformView = ({ audioUrl, audioContentType, waveformDataUrl }) => {
       mediaElement: audioElementRef.current,
       keyboard: true,
       logger: console.error.bind(console),
-      // createSegmentMarker: createSegmentMarker,
-      // createSegmentLabel: createSegmentLabel,
-      // createPointMarker: createPointMarker
+      dataUri: {
+        arraybuffer: waveformDataUrl,
+      },
     };
-
-    // if (this.props.waveformDataUrl) {
-    //   options.dataUri = {
-    //     arraybuffer: this.props.waveformDataUrl
-    //   };
-    // }
-    // else if (this.props.audioContext) {
-    //   options.webAudio = {
-    //     audioContext: this.props.audioContext
-    //   };
-    // }
 
     audioElementRef.current.src = audioUrl;
 
-    // if (this.peaks) {
-    //   this.peaks.destroy();
-    //   this.peaks = null;
-    // }
+    if (peaks) {
+      peaks.destroy();
+      peaks = null;
+    }
 
     Peaks.init(options, (err, peaks) => {
+      if (err) {
+        console.error("Failed to initialize Peaks instance: " + err.message);
+        return;
+      }
+
       peaks = peaks;
-      // this.onPeaksReady();
+      console.log("Peaks.js is ready", { peaks });
+      console.log(peaks.player.getCurrentTime());
     });
   }
 
