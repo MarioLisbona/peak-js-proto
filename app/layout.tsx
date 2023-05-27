@@ -6,7 +6,7 @@ import NavbarTemplate from "./components/Navbar/NavbarTemplate";
 import Navbar from "./components/Navbar/OldIndex";
 
 export const metadata: Metadata = {
-  title: "Edit on the Spot",
+  title: "Peak.js Waveform Prototype",
   description:
     "Edit on the Spot repurposes any live-stream, video conference and studio recordings into clips, segments and highlight videos automatically.",
 };
