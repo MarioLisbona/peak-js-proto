@@ -10,8 +10,6 @@ const WaveForm = () => {
     waveformDataUrl: "07030039.dat",
   });
 
-  console.log(url.audioUrl);
-
   function selectAudio(evt) {
     const e = Number(evt);
 
