@@ -48,12 +48,20 @@ const WaveForm = () => {
         <Text textStyle={"subheading"} mb={"2rem"}>
           Peak.js Waveform Prototype
         </Text>
-        <Flex justify={"flex-start"} align={"center"} w={"100%"} mb={"2rem"}>
+        <Flex
+          direction={{ base: "column", lg: "row" }}
+          justify={"flex-start"}
+          align={"center"}
+          w={"100%"}
+          mb={"2rem"}
+        >
           <Text textStyle={"context"}>Choose and audio file</Text>
           <Button
             onClick={(evt) => handleSelectedAudioChange(evt.target.value)}
             variant={"brandOutlined"}
             value={1}
+            mt={{ base: "1rem", lg: "0rem" }}
+            mb={{ base: "0.5rem", lg: "0rem" }}
           >
             Bird Song
           </Button>
@@ -61,6 +69,7 @@ const WaveForm = () => {
             onClick={(evt) => handleSelectedAudioChange(evt.target.value)}
             variant={"brandOutlined"}
             value={2}
+            mb={{ base: "0.5rem", lg: "0rem" }}
           >
             Car Passing
           </Button>
@@ -68,6 +77,7 @@ const WaveForm = () => {
             onClick={(evt) => handleSelectedAudioChange(evt.target.value)}
             variant={"brandOutlined"}
             value={3}
+            mb={{ base: "0.5rem", lg: "0rem" }}
           >
             Instrumental
           </Button>
