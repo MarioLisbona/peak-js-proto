@@ -29,6 +29,12 @@ const WaveformView = ({ audioUrl, audioContentType, waveformDataUrl }) => {
   }, [audioUrl]);
 
   function initPeaks() {
+    console.log("inside initPeaKS()", {
+      zoomviewWaveformRef,
+      overviewWaveformRef,
+      audioElementRef,
+    });
+
     const options = {
       containers: {
         overview: overviewWaveformRef.current,
