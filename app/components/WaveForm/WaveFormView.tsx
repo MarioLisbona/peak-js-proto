@@ -1,41 +1,32 @@
-"use client";
+'use client';
 
-import { Flex, Text } from "@chakra-ui/react";
-import React, { useEffect } from "react";
-import Peaks from "peaks.js";
+import { Flex, Text } from '@chakra-ui/react';
+import React, { useCallback, useEffect, useState, useMemo } from 'react';
+import Peaks, { PeaksInstance, PeaksOptions } from 'peaks.js';
+import { OverviewContainer, ZoomviewContainer } from './styled';
 
 const WaveformView = ({ audioUrl, audioContentType, waveformDataUrl }) => {
-  const zoomviewWaveformRef = React.createRef();
-  const overviewWaveformRef = React.createRef();
-  const audioElementRef = React.createRef();
-  let peaks = null;
+  const zoomviewWaveformRef = React.createRef<HTMLDivElement>();
+  const overviewWaveformRef = React.createRef<HTMLDivElement>();
+  const audioElementRef = React.createRef<HTMLAudioElement>();
+
+  const [myPeaks, setMyPeaks] = useState<PeaksInstance | undefined>();
 
   console.log(
-    "WaveformView.render, audioUrl:",
+    'WaveformView.render, audioUrl:',
     audioUrl,
-    "waveformDataUrl:",
+    'waveformDataUrl:',
     waveformDataUrl
   );
 
-  useEffect(() => {
-    console.log("WaveformComponent mounted in useEffect");
-
-    initPeaks();
-  });
-
-  useEffect(() => {
-    console.log("WaveformComponent updated in useEffect");
-    initPeaks();
-  }, [audioUrl]);
-
-  function initPeaks() {
-    console.log("inside initPeaKS()", {
+  const initPeaks = useCallback(() => {
+    console.log('inside initPeaks()', {
       zoomviewWaveformRef,
       overviewWaveformRef,
       audioElementRef,
     });
 
-    const options = {
+    const options: PeaksOptions = {
       containers: {
         overview: overviewWaveformRef.current,
         zoomview: zoomviewWaveformRef.current,
@@ -46,39 +37,52 @@ const WaveformView = ({ audioUrl, audioContentType, waveformDataUrl }) => {
       dataUri: {
         arraybuffer: waveformDataUrl,
       },
+      createSegmentMarker: undefined,
+      createSegmentLabel: undefined,
+      createPointMarker: undefined,
     };
 
     audioElementRef.current.src = audioUrl;
 
-    if (peaks) {
-      peaks.destroy();
-      peaks = null;
+    if (myPeaks) {
+      myPeaks.destroy();
+      setMyPeaks(undefined);
     }
 
     Peaks.init(options, (err, peaks) => {
       if (err) {
-        console.error("Failed to initialize Peaks instance: " + err.message);
+        console.error('Failed to initialize Peaks instance: ' + err.message);
         return;
       }
 
-      peaks = peaks;
-      console.log("Peaks.js is ready", { peaks });
+      setMyPeaks(peaks);
+
+      if (!peaks) {
+        return;
+      }
+
+      console.log('Peaks.js is ready', { peaks });
       console.log(peaks.player.getCurrentTime());
     });
-  }
+  }, [audioUrl]);
+
+  useEffect(() => {
+    initPeaks();
+  }, [initPeaks]);
 
   return (
     <>
       <Flex
-        justify={"center"}
-        align={"center"}
-        width={"100%"}
-        direction={"column"}
+        justify={'center'}
+        align={'center'}
+        width={'100%'}
+        direction={'column'}
       >
-        <div className="zoomview-container" ref={zoomviewWaveformRef}></div>
-        <div className="overview-container" ref={overviewWaveformRef}></div>
+        <ZoomviewContainer ref={zoomviewWaveformRef}></ZoomviewContainer>
 
-        <audio ref={audioElementRef} controls="controls">
+        <OverviewContainer ref={overviewWaveformRef}></OverviewContainer>
+
+        <audio ref={audioElementRef} controls>
           <source src={audioUrl} type={audioContentType} />
           Your browser does not support the audio element.
         </audio>
