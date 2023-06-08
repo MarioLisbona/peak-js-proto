@@ -27,7 +27,7 @@ const OuterContainer = ({ selectAudio, children }) => {
           <Button
             onClick={(evt) => selectAudio(evt.target.value)}
             variant={"brandOutlined"}
-            value={1}
+            value={0}
             mt={{ base: "1rem", lg: "0rem" }}
             mb={{ base: "0.5rem", lg: "0rem" }}
           >
@@ -36,7 +36,7 @@ const OuterContainer = ({ selectAudio, children }) => {
           <Button
             onClick={(evt) => selectAudio(evt.target.value)}
             variant={"brandOutlined"}
-            value={2}
+            value={1}
             mb={{ base: "0.5rem", lg: "0rem" }}
           >
             Car Passing
@@ -44,7 +44,7 @@ const OuterContainer = ({ selectAudio, children }) => {
           <Button
             onClick={(evt) => selectAudio(evt.target.value)}
             variant={"brandOutlined"}
-            value={3}
+            value={2}
             mb={{ base: "0.5rem", lg: "0rem" }}
           >
             Instrumental
