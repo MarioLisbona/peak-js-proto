@@ -25,7 +25,9 @@ const OuterContainer = ({ selectAudio, children }) => {
         >
           <Text textStyle={"context"}>Choose and audio file</Text>
           <Button
-            onClick={(evt) => selectAudio(evt.target.value)}
+            onClick={(evt) =>
+              selectAudio((evt.target as HTMLButtonElement).value)
+            }
             variant={"brandOutlined"}
             value={0}
             mt={{ base: "1rem", lg: "0rem" }}
@@ -34,7 +36,9 @@ const OuterContainer = ({ selectAudio, children }) => {
             Bird Song
           </Button>
           <Button
-            onClick={(evt) => selectAudio(evt.target.value)}
+            onClick={(evt) =>
+              selectAudio((evt.target as HTMLButtonElement).value)
+            }
             variant={"brandOutlined"}
             value={1}
             mb={{ base: "0.5rem", lg: "0rem" }}
@@ -42,7 +46,9 @@ const OuterContainer = ({ selectAudio, children }) => {
             Car Passing
           </Button>
           <Button
-            onClick={(evt) => selectAudio(evt.target.value)}
+            onClick={(evt) =>
+              selectAudio((evt.target as HTMLButtonElement).value)
+            }
             variant={"brandOutlined"}
             value={2}
             mb={{ base: "0.5rem", lg: "0rem" }}
