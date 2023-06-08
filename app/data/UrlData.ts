@@ -1,3 +1,9 @@
+export type UrlDataProps = {
+  audioUrl: string;
+  audioContentType: string;
+  waveformDataUrl: string;
+};
+
 export const urls = [
   {
     audioUrl: "07030039.mp3",
