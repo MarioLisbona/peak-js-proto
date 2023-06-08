@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 
 export const ZoomviewContainer = styled.div`
   box-shadow: 3px 3px 20px #919191;
@@ -6,7 +6,7 @@ export const ZoomviewContainer = styled.div`
   -webkit-box-shadow: 3px 3px 20px #919191;
   margin: 24px 0 24px 0;
   line-height: 0;
-  height: 200px;
+  height: 300px;
   width: 100%;
 `;
 

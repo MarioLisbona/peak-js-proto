@@ -14,7 +14,8 @@ const OuterContainer = ({
   return (
     <SectionContainer>
       <Flex
-        bg={"bgPink"}
+        borderColor={"gray.700"}
+        border={"2px"}
         align={"center"}
         direction={"column"}
         p={"2rem"}

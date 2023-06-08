@@ -19,19 +19,39 @@ const WaveformView = ({
 
   const initPeaks = useCallback(() => {
     const options: PeaksOptions = {
-      containers: {
-        overview: overviewWaveformRef.current,
-        zoomview: zoomviewWaveformRef.current,
+      overview: {
+        container: overviewWaveformRef.current,
+      },
+      zoomview: {
+        container: zoomviewWaveformRef.current,
+        // Color for the zoomable waveform
+        // You can also use a 2 stop gradient here. See setWaveformColor()
+        waveformColor: "#191C43",
+
+        // Color for the played region of the zoomable waveform
+        // You can also use a 2 stop gradient here. See setWaveformColor()
+        playedWaveformColor: "#D92027",
+
+        // Color of the playhead
+        playheadColor: "#000000",
+
+        // Color of the playhead text
+        playheadTextColor: "#000000",
+
+        // Show current time next to the playhead
+        showPlayheadTime: true,
+
+        // Precision of time label of playhead and point/segment markers
+        timeLabelPrecision: 2,
+
+        // Mouse-wheel mode: either 'none' or 'scroll'
+        wheelMode: "scroll",
       },
       mediaElement: audioElementRef.current!,
       keyboard: true,
-      logger: console.error.bind(console),
       dataUri: {
         arraybuffer: waveformDataUrl,
       },
-      // Color for the zoomable waveform
-      // You can also use a 2 stop gradient here. See setWaveformColor()
-      waveformColor: "#191C43",
 
       createSegmentMarker: undefined,
       createSegmentLabel: undefined,
