@@ -18,12 +18,13 @@ const WaveformView = ({
   const [myPeaks, setMyPeaks] = useState<PeaksInstance | undefined>();
 
   const initPeaks = useCallback(() => {
+    console.log(audioElementRef.current);
     const options: PeaksOptions = {
       containers: {
         overview: overviewWaveformRef.current,
         zoomview: zoomviewWaveformRef.current,
       },
-      mediaElement: audioElementRef.current,
+      mediaElement: audioElementRef.current!,
       keyboard: true,
       logger: console.error.bind(console),
       dataUri: {
