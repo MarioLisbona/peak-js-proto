@@ -34,7 +34,6 @@ const OuterContainer = ({
           <Button
             onClick={(evt) => {
               selectAudio((evt.target as HTMLButtonElement).value);
-              console.log(typeof (evt.target as HTMLButtonElement).value);
             }}
             variant={"brandOutlined"}
             value={0}

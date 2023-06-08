@@ -53,11 +53,15 @@ const WaveformView = ({
         return;
       }
     });
+
+    console.log("inside useCallback", { myPeaks });
   }, [audioUrl]);
 
   useEffect(() => {
     initPeaks();
   }, [initPeaks]);
+
+  console.log("outside useCallback", { myPeaks });
 
   return (
     <>
