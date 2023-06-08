@@ -98,19 +98,18 @@ const WaveformView = ({
 
       setMyPeaks(peaks);
 
+      const view = peaks?.views.getView("zoomview");
+      view?.setAmplitudeScale(0.8);
+
       if (!peaks) {
         return;
       }
     });
-
-    console.log("inside useCallback", { myPeaks });
   }, [audioUrl]);
 
   useEffect(() => {
     initPeaks();
   }, [initPeaks]);
-
-  console.log("outside useCallback", { myPeaks });
 
   return (
     <>

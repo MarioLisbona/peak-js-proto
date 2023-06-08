@@ -6,9 +6,9 @@ import { SelectAudioProps } from "@/app/types";
 
 const WaveForm = () => {
   const [url, setUrl] = useState({
-    audioUrl: "07030039.mp3",
+    audioUrl: "Instrumental.mp3",
     audioContentType: "audio/mpeg",
-    waveformDataUrl: "07030039.dat",
+    waveformDataUrl: "Instrumental.dat",
   });
 
   const selectAudio: SelectAudioProps = (evt: string) => {
