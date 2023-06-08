@@ -21,16 +21,26 @@ const WaveformView = ({
     const options: PeaksOptions = {
       overview: {
         container: overviewWaveformRef.current,
+        // Color for the overview waveform
+        // You can also use a 2 stop gradient here. See setWaveformColor()
+        waveformColor: "#41729F",
+        // Color for the played region of the overview waveform
+        // You can also use a 2 stop gradient here. See setWaveformColor()
+        playedWaveformColor: "#C3E0E5",
+        // Color for the overview waveform rectangle
+        // that shows what the zoomable view shows
+        highlightColor: "#B50000",
       },
       zoomview: {
         container: zoomviewWaveformRef.current,
+
         // Color for the zoomable waveform
         // You can also use a 2 stop gradient here. See setWaveformColor()
-        waveformColor: "#191C43",
+        waveformColor: "#41729F",
 
         // Color for the played region of the zoomable waveform
         // You can also use a 2 stop gradient here. See setWaveformColor()
-        playedWaveformColor: "#D92027",
+        playedWaveformColor: "#C3E0E5",
 
         // Color of the playhead
         playheadColor: "#000000",
@@ -48,10 +58,25 @@ const WaveformView = ({
         wheelMode: "scroll",
       },
       mediaElement: audioElementRef.current!,
-      keyboard: true,
+
       dataUri: {
         arraybuffer: waveformDataUrl,
       },
+
+      // Array of zoom levels in samples per pixel. Smaller numbers represent
+      // being more "zoomed in".
+      zoomLevels: [512, 1024, 2048, 4096],
+
+      // To avoid computation when changing zoom level, Peaks.js maintains a cache
+      // of waveforms at different zoom levels. This is enabled by default, but
+      // can be disabled by setting waveformCache to false
+      waveformCache: true,
+
+      // Bind keyboard controls
+      keyboard: true,
+
+      // Keyboard nudge increment in seconds (left arrow/right arrow)
+      nudgeIncrement: 0.01,
 
       createSegmentMarker: undefined,
       createSegmentLabel: undefined,
