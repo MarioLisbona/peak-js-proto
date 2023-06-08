@@ -2,15 +2,14 @@ import React from "react";
 
 import SectionContainer from "../SectionContainer";
 import { Flex, Text, Button } from "@chakra-ui/react";
-type selectAudioProps = (evt: string) => void;
+import { SelectAudioProps } from "@/app/types";
 
 const OuterContainer = ({
   selectAudio,
   children,
 }: {
-  selectAudio: selectAudioProps
+  selectAudio: SelectAudioProps;
   children: React.ReactNode;
-  
 }) => {
   return (
     <SectionContainer>

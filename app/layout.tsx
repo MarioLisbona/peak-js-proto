@@ -1,15 +1,10 @@
+"use client";
 import "./globals.css";
 import { Providers } from "@/app/providers";
 import Footer from "./components/Footer";
 import { Metadata } from "next";
 import NavbarTemplate from "./components/Navbar/NavbarTemplate";
 import Navbar from "./components/Navbar/OldIndex";
-
-export const metadata: Metadata = {
-  title: "Peak.js Waveform Prototype",
-  description:
-    "Edit on the Spot repurposes any live-stream, video conference and studio recordings into clips, segments and highlight videos automatically.",
-};
 
 export default function RootLayout({
   children,

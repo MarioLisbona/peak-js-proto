@@ -1,20 +1,17 @@
 import React, { useState } from "react";
 import WaveformView from "./WaveFormView";
 import OuterContainer from "./OuterContainer";
-import { UrlDataProps } from "../../data/UrlData";
-
 import { urls } from "../../data/UrlData";
+import { SelectAudioProps } from "@/app/types";
 
 const WaveForm = () => {
-  type selectAudioProps = (evt: string) => void;
-
   const [url, setUrl] = useState({
     audioUrl: "07030039.mp3",
     audioContentType: "audio/mpeg",
     waveformDataUrl: "07030039.dat",
   });
 
-  const selectAudio: selectAudioProps = (evt: string) => {
+  const selectAudio: SelectAudioProps = (evt: string) => {
     const e = Number(evt);
 
     setUrl({
