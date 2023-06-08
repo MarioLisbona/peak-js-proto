@@ -29,6 +29,10 @@ const WaveformView = ({
       dataUri: {
         arraybuffer: waveformDataUrl,
       },
+      // Color for the zoomable waveform
+      // You can also use a 2 stop gradient here. See setWaveformColor()
+      waveformColor: "#191C43",
+
       createSegmentMarker: undefined,
       createSegmentLabel: undefined,
       createPointMarker: undefined,
