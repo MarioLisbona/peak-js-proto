@@ -1,31 +1,23 @@
-'use client';
+"use client";
 
-import { Flex, Text } from '@chakra-ui/react';
-import React, { useCallback, useEffect, useState, useMemo } from 'react';
-import Peaks, { PeaksInstance, PeaksOptions } from 'peaks.js';
-import { OverviewContainer, ZoomviewContainer } from './styled';
+import { Flex, Text } from "@chakra-ui/react";
+import React, { useCallback, useEffect, useState, useMemo } from "react";
+import Peaks, { PeaksInstance, PeaksOptions } from "peaks.js";
+import { OverviewContainer, ZoomviewContainer } from "./styled";
+import { UrlDataProps } from "@/app/data/UrlData";
 
-const WaveformView = ({ audioUrl, audioContentType, waveformDataUrl }) => {
+const WaveformView = ({
+  audioUrl,
+  audioContentType,
+  waveformDataUrl,
+}: UrlDataProps) => {
   const zoomviewWaveformRef = React.createRef<HTMLDivElement>();
   const overviewWaveformRef = React.createRef<HTMLDivElement>();
   const audioElementRef = React.createRef<HTMLAudioElement>();
 
   const [myPeaks, setMyPeaks] = useState<PeaksInstance | undefined>();
 
-  console.log(
-    'WaveformView.render, audioUrl:',
-    audioUrl,
-    'waveformDataUrl:',
-    waveformDataUrl
-  );
-
   const initPeaks = useCallback(() => {
-    console.log('inside initPeaks()', {
-      zoomviewWaveformRef,
-      overviewWaveformRef,
-      audioElementRef,
-    });
-
     const options: PeaksOptions = {
       containers: {
         overview: overviewWaveformRef.current,
@@ -51,7 +43,7 @@ const WaveformView = ({ audioUrl, audioContentType, waveformDataUrl }) => {
 
     Peaks.init(options, (err, peaks) => {
       if (err) {
-        console.error('Failed to initialize Peaks instance: ' + err.message);
+        console.error("Failed to initialize Peaks instance: " + err.message);
         return;
       }
 
@@ -60,9 +52,6 @@ const WaveformView = ({ audioUrl, audioContentType, waveformDataUrl }) => {
       if (!peaks) {
         return;
       }
-
-      console.log('Peaks.js is ready', { peaks });
-      console.log(peaks.player.getCurrentTime());
     });
   }, [audioUrl]);
 
@@ -73,10 +62,10 @@ const WaveformView = ({ audioUrl, audioContentType, waveformDataUrl }) => {
   return (
     <>
       <Flex
-        justify={'center'}
-        align={'center'}
-        width={'100%'}
-        direction={'column'}
+        justify={"center"}
+        align={"center"}
+        width={"100%"}
+        direction={"column"}
       >
         <ZoomviewContainer ref={zoomviewWaveformRef}></ZoomviewContainer>
 
