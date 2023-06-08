@@ -18,7 +18,7 @@ const WaveformView = ({
   const [myPeaks, setMyPeaks] = useState<PeaksInstance | undefined>();
 
   const initPeaks = useCallback(() => {
-    console.log(audioElementRef.current);
+    console.log(audioElementRef.current.src);
     const options: PeaksOptions = {
       containers: {
         overview: overviewWaveformRef.current,
@@ -35,7 +35,7 @@ const WaveformView = ({
       createPointMarker: undefined,
     };
 
-    audioElementRef.current.src = audioUrl;
+    audioElementRef.current!.src = audioUrl;
 
     if (myPeaks) {
       myPeaks.destroy();
