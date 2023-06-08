@@ -2,8 +2,16 @@ import React from "react";
 
 import SectionContainer from "../SectionContainer";
 import { Flex, Text, Button } from "@chakra-ui/react";
+type selectAudioProps = (evt: string) => void;
 
-const OuterContainer = ({ selectAudio, children }) => {
+const OuterContainer = ({
+  selectAudio,
+  children,
+}: {
+  selectAudio: selectAudioProps
+  children: React.ReactNode;
+  
+}) => {
   return (
     <SectionContainer>
       <Flex
@@ -25,9 +33,10 @@ const OuterContainer = ({ selectAudio, children }) => {
         >
           <Text textStyle={"context"}>Choose and audio file</Text>
           <Button
-            onClick={(evt) =>
-              selectAudio((evt.target as HTMLButtonElement).value)
-            }
+            onClick={(evt) => {
+              selectAudio((evt.target as HTMLButtonElement).value);
+              console.log(typeof (evt.target as HTMLButtonElement).value);
+            }}
             variant={"brandOutlined"}
             value={0}
             mt={{ base: "1rem", lg: "0rem" }}

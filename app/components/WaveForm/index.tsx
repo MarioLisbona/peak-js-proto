@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import WaveformView from "./WaveFormView";
 import OuterContainer from "./OuterContainer";
+import { UrlDataProps } from "../../data/UrlData";
 
 import { urls } from "../../data/UrlData";
+
 const WaveForm = () => {
+  type selectAudioProps = (evt: string) => void;
+
   const [url, setUrl] = useState({
     audioUrl: "07030039.mp3",
     audioContentType: "audio/mpeg",
     waveformDataUrl: "07030039.dat",
   });
 
-  function selectAudio(evt) {
+  const selectAudio: selectAudioProps = (evt: string) => {
     const e = Number(evt);
 
     setUrl({
@@ -18,7 +22,7 @@ const WaveForm = () => {
       audioContentType: urls[e].audioContentType,
       waveformDataUrl: urls[e].waveformDataUrl,
     });
-  }
+  };
 
   return (
     <OuterContainer selectAudio={selectAudio}>
