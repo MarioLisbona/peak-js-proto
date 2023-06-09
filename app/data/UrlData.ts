@@ -6,14 +6,14 @@ export type UrlDataProps = {
 
 export const urls = [
   {
-    audioUrl: "07030039.mp3",
+    audioUrl: "bird-song.mp3",
     audioContentType: "audio/mpeg",
-    waveformDataUrl: "07030039.dat",
+    waveformDataUrl: "bird-song.dat",
   },
   {
-    audioUrl: "07023003.mp3",
+    audioUrl: "car-passing.mp3",
     audioContentType: "audio/mpeg",
-    waveformDataUrl: "07023003-2channel.dat",
+    waveformDataUrl: "car-passing-2channel.dat",
   },
   {
     audioUrl: "Instrumental.mp3",

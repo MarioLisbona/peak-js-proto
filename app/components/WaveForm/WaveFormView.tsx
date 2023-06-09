@@ -5,7 +5,6 @@ import React, { useCallback, useEffect, useState, useMemo } from "react";
 import Peaks, { PeaksInstance, PeaksOptions } from "peaks.js";
 import { OverviewContainer, ZoomviewContainer } from "./styled";
 import { UrlDataProps } from "@/app/data/UrlData";
-import { zoomviewConfig, overviewConfig } from "@/app/data/ContainerConfigData";
 
 const WaveformView = ({
   audioUrl,
@@ -120,7 +119,9 @@ const WaveformView = ({
 
   //call initi peaks on initial mount of WaveForm component
   useEffect(() => {
-    initPeaks();
+    if (initPeaks) {
+      initPeaks();
+    }
   }, []);
 
   //call .setSource methood to change audio source and waveform on peaks instance every time the audioUrl is changed
@@ -134,7 +135,10 @@ const WaveformView = ({
     };
 
     myPeaks?.setSource(options, (err) => {
-      console.error("Failed to initialize Peaks instance: " + err.message);
+      if (err) {
+        console.error("Failed to initialize Peaks instance: " + err.message);
+        return;
+      }
     });
   }, [audioUrl]);
 
