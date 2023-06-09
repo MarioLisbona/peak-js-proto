@@ -7,6 +7,10 @@ import { OverviewContainer, ZoomviewContainer } from "./styled";
 import { UrlDataProps } from "@/app/data/UrlData";
 import { SegmentProps } from "@/app/types";
 import {
+  overviewOptionsConfig,
+  zoomviewOptionsConfig,
+} from "@/app/lib/waveform-config";
+import {
   PlayPauseAudio,
   zoomIn,
   zoomOut,
@@ -38,52 +42,9 @@ const WaveformView = ({
   // audio changes are implemented on this instance of peaks using hte .setSource method
   const initPeaks = useCallback(() => {
     const options: PeaksOptions = {
-      overview: {
-        container: overviewWaveformRef.current,
-        // Color for the overview waveform
-        // You can also use a 2 stop gradient here. See setWaveformColor()
-
-        waveformColor: "#41729F",
-        // Color for the played region of the overview waveform
-        // You can also use a 2 stop gradient here. See setWaveformColor()
-
-        playedWaveformColor: "#C3E0E5",
-        // Color for the overview waveform rectangle
-        // that shows what the zoomable view shows
-        highlightColor: "#B50000",
-
-        // Show current time next to the play head
-        showPlayheadTime: true,
-
-        // Color of the playhead text
-        playheadTextColor: "#000000",
-      },
-      zoomview: {
-        container: zoomviewWaveformRef.current,
-
-        // Color for the zoomable waveform
-        // You can also use a 2 stop gradient here. See setWaveformColor()
-        waveformColor: "#41729F",
-
-        // Color for the played region of the zoomable waveform
-        // You can also use a 2 stop gradient here. See setWaveformColor()
-        playedWaveformColor: "#C3E0E5",
-
-        // Color of the playhead
-        playheadColor: "#000000",
-
-        // Color of the playhead text
-        playheadTextColor: "#000000",
-
-        // Show current time next to the playhead
-        showPlayheadTime: true,
-
-        // Precision of time label of playhead and point/segment markers
-        timeLabelPrecision: 2,
-
-        // Mouse-wheel mode: either 'none' or 'scroll'
-        // wheelMode: "scroll",
-      },
+      //setting config options for overview and zoomview
+      overview: overviewOptionsConfig(overviewWaveformRef),
+      zoomview: zoomviewOptionsConfig(zoomviewWaveformRef),
 
       //assigning the current audio element
       mediaElement: audioElementRef.current!,
