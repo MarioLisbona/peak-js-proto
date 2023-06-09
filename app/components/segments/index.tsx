@@ -13,7 +13,6 @@ import {
 import { Segment } from "peaks.js";
 
 export default function DisplaySegments({ segments }: { segments: Segment[] }) {
-  console.log("inside Displaysegments table", segments);
   return (
     <TableContainer>
       <Table variant="simple">
@@ -21,12 +20,22 @@ export default function DisplaySegments({ segments }: { segments: Segment[] }) {
         <Thead>
           <Tr>
             <Th>Clip Name</Th>
-            <Th>Start</Th>
-            <Th>End</Th>
+            <Th>Start Time Code</Th>
+            <Th>End Time Code</Th>
             <Th>Duration</Th>
           </Tr>
         </Thead>
-        <Tbody>segments &&</Tbody>
+        <Tbody>
+          {segments.length > 0 &&
+            segments.map((seg, idx) => (
+              <Tr key={idx}>
+                <Td>{seg._id}</Td>
+                <Td isNumeric>{seg._startTime}</Td>
+                <Td isNumeric>{seg._endTime}</Td>
+                <Td isNumeric>{seg._endTime - seg._startTime}</Td>
+              </Tr>
+            ))}
+        </Tbody>
       </Table>
     </TableContainer>
   );

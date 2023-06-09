@@ -46,5 +46,5 @@ export const getAllSegments = (
   peaks: PeaksInstance | undefined,
   setSegments: React.Dispatch<React.SetStateAction<Segment[]>>
 ) => {
-  setSegments(peaks.segments.getSegments());
+  setSegments(peaks!.segments.getSegments());
 };
