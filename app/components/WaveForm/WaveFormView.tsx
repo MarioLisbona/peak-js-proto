@@ -54,9 +54,9 @@ const WaveformView = ({
         arraybuffer: waveformDataUrl,
       },
 
-      // Array of zoom levels in samples per pixel. Smaller numbers represent
-      // being more "zoomed in".
-      zoomLevels: [512, 1024, 2048, 4096],
+      // // Array of zoom levels in samples per pixel. Smaller numbers represent
+      // // being more "zoomed in".
+      // zoomLevels: [512, 1024, 2048, 4096],
 
       // To avoid computation when changing zoom level, Peaks.js maintains a cache
       // of waveforms at different zoom levels. This is enabled by default, but
