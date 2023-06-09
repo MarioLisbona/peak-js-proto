@@ -7,6 +7,7 @@ import { OverviewContainer, ZoomviewContainer } from "./styled";
 import { UrlDataProps } from "@/app/data/UrlData";
 import { SegmentProps } from "@/app/types";
 import {
+  setPeaksConfig,
   overviewOptionsConfig,
   zoomviewOptionsConfig,
 } from "@/app/lib/waveform-config";
@@ -41,34 +42,15 @@ const WaveformView = ({
   // useCallback means this will only render a single instance of peaks
   // audio changes are implemented on this instance of peaks using hte .setSource method
   const initPeaks = useCallback(() => {
-    const options: PeaksOptions = {
-      //setting config options for overview and zoomview
-      overview: overviewOptionsConfig(overviewWaveformRef),
-      zoomview: zoomviewOptionsConfig(zoomviewWaveformRef),
-
-      //assigning the current audio element
-      mediaElement: audioElementRef.current!,
-
-      //assigning the precomputed waveform data
-      dataUri: {
-        arraybuffer: waveformDataUrl,
-      },
-
-      // // Array of zoom levels in samples per pixel. Smaller numbers represent
-      // // being more "zoomed in".
-      // zoomLevels: [512, 1024, 2048, 4096],
-
-      // To avoid computation when changing zoom level, Peaks.js maintains a cache
-      // of waveforms at different zoom levels. This is enabled by default, but
-      // can be disabled by setting waveformCache to false
-      waveformCache: true,
-
-      // Bind keyboard controls
-      keyboard: true,
-
-      // Keyboard nudge increment in seconds (left arrow/right arrow)
-      nudgeIncrement: 0.01,
-    };
+    //setting options here by invoking setPeaksConfig()
+    const options: PeaksOptions = setPeaksConfig(
+      overviewWaveformRef,
+      zoomviewWaveformRef,
+      audioElementRef,
+      overviewOptionsConfig,
+      zoomviewOptionsConfig,
+      waveformDataUrl
+    );
 
     //assigning the source for the audio element
     audioElementRef.current!.src = audioUrl;

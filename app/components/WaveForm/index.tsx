@@ -8,9 +8,9 @@ import Table from "../segments";
 
 const WaveForm = () => {
   const [url, setUrl] = useState({
-    audioUrl: "Instrumental.mp3",
+    audioUrl: "EOS-test.mp3",
     audioContentType: "audio/mpeg",
-    waveformDataUrl: "Instrumental.dat",
+    waveformDataUrl: "EOS-test.dat",
   });
 
   const selectAudio: SelectAudioProps = (evt: string) => {

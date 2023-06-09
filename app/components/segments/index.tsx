@@ -30,12 +30,12 @@ export default function DisplaySegments({ segments }: { segments: Segment[] }) {
         </Thead>
         <Tbody>
           {segments.length > 0 &&
-            segments.map((seg, idx) => (
+            segments.map((seg: Segment, idx: number) => (
               <Tr key={idx}>
-                <Td>{seg._id}</Td>
-                <Td isNumeric>{seg._startTime}</Td>
-                <Td isNumeric>{seg._endTime}</Td>
-                <Td isNumeric>{seg._endTime - seg._startTime}</Td>
+                <Td>{seg.id}</Td>
+                <Td isNumeric>{seg.startTime}</Td>
+                <Td isNumeric>{seg.endTime}</Td>
+                <Td isNumeric>{seg.endTime - seg.startTime}</Td>
               </Tr>
             ))}
         </Tbody>
