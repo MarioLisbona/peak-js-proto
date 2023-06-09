@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useState, useMemo } from "react";
 import Peaks, { PeaksInstance, PeaksOptions } from "peaks.js";
 import { OverviewContainer, ZoomviewContainer } from "./styled";
 import { UrlDataProps } from "@/app/data/UrlData";
-import { PlayPauseAudio } from "@/app/lib/waveform-utils";
+import { PlayPauseAudio, zoomIn, zoomOut } from "@/app/lib/waveform-utils";
 
 const WaveformView = ({
   audioUrl,
@@ -163,13 +163,21 @@ const WaveformView = ({
         </audio>
       </Flex>
       <Flex w={"100%"} justify={"space-between"} p={"1rem"}>
-        <Flex>
+        <Flex direction={"column"}>
           <Button
             variant={"brandOutlined"}
             onClick={() => PlayPauseAudio(myPeaks, isPlaying, setIsPlaying)}
           >
             Play / Pause
           </Button>
+          <Flex>
+            <Button variant={"brandOutlined"} onClick={() => zoomIn(myPeaks)}>
+              Zoom in
+            </Button>
+            <Button variant={"brandOutlined"} onClick={() => zoomOut(myPeaks)}>
+              Zoom out
+            </Button>
+          </Flex>
         </Flex>
         <Flex>
           <Button variant={"brandOutlined"}>Add Segment</Button>

@@ -13,3 +13,11 @@ export const PlayPauseAudio = (
     setIsPlaying(false);
   }
 };
+
+export const zoomIn = (peaks: PeaksInstance | undefined) => {
+  peaks?.zoom.zoomIn();
+};
+
+export const zoomOut = (peaks: PeaksInstance | undefined) => {
+  peaks?.zoom.zoomOut();
+};
