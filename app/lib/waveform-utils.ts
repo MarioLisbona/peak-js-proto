@@ -25,17 +25,18 @@ export const zoomOut = (peaks: PeaksInstance | undefined) => {
 
 export const addSegment = (
   peaks: PeaksInstance | undefined,
+  audioUrl: string,
   segmentNum: number,
   setSegmentNum: React.Dispatch<React.SetStateAction<number>>
 ) => {
   const playHead = peaks!.player.getCurrentTime();
-
+  const filename = audioUrl.substring(0, audioUrl.indexOf("."));
   peaks?.segments.add({
-    id: `segment-${segmentNum}`,
+    id: `segment-${segmentNum}-${filename}`,
     startTime: playHead,
     endTime: playHead + 5,
-    color: "#orange",
-    customAttribute: `This is a custom value for segment ${segmentNum}`,
+    color: "#000C66",
+    customAttribute: `This is segment ${segmentNum} for audio track ${filename}`,
   });
   setSegmentNum(segmentNum + 1);
 };

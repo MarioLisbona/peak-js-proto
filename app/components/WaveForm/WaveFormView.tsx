@@ -18,6 +18,7 @@ const WaveformView = ({
   audioContentType,
   waveformDataUrl,
 }: UrlDataProps) => {
+  console.log("waveform component.tsx", audioUrl);
   //create ref's to peaks.js containers
   const zoomviewWaveformRef = React.createRef<HTMLDivElement>();
   const overviewWaveformRef = React.createRef<HTMLDivElement>();
@@ -189,7 +190,9 @@ const WaveformView = ({
         <Flex>
           <Button
             variant={"brandOutlined"}
-            onClick={() => addSegment(myPeaks, segmentNum, setSegmentNum)}
+            onClick={() =>
+              addSegment(myPeaks, audioUrl, segmentNum, setSegmentNum)
+            }
           >
             Add Segment
           </Button>
