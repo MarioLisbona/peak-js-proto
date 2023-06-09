@@ -36,7 +36,7 @@ export const addSegment = (
     id: `segment-${segmentNum}-${filename}`,
     startTime: playHead,
     endTime: playHead + 5,
-    color: "#000C66",
+    color: "#D92027",
     customAttribute: `This is segment ${segmentNum} for audio track ${filename}`,
   });
   setSegmentNum(segmentNum + 1);

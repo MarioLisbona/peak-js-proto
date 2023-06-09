@@ -8,6 +8,7 @@ import {
   Td,
   TableCaption,
   TableContainer,
+  Text,
 } from "@chakra-ui/react";
 
 import { Segment } from "peaks.js";
@@ -16,7 +17,9 @@ export default function DisplaySegments({ segments }: { segments: Segment[] }) {
   return (
     <TableContainer>
       <Table variant="simple">
-        <TableCaption>Imperial to metric conversion factors</TableCaption>
+        <TableCaption>
+          <Text textStyle={"subheading"}>Logged Clips</Text>
+        </TableCaption>
         <Thead>
           <Tr>
             <Th>Clip Name</Th>
