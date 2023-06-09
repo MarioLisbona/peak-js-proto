@@ -1,6 +1,6 @@
 "use client";
 
-import { Flex, Button } from "@chakra-ui/react";
+import { Flex, Button, Text } from "@chakra-ui/react";
 import React, { useCallback, useEffect, useState, useMemo } from "react";
 import Peaks, { PeaksInstance, PeaksOptions, Segment } from "peaks.js";
 import { OverviewContainer, ZoomviewContainer } from "./styled";
@@ -19,6 +19,9 @@ import {
   getAllSegments,
 } from "@/app/lib/waveform-utils";
 import DisplaySegments from "../segments";
+import { Icon } from "@chakra-ui/react";
+import { TbBracketsContainStart, TbBracketsContainEnd } from "react-icons/tb";
+import { HiPlayPause } from "react-icons/hi2";
 
 const WaveformView = ({
   audioUrl,
@@ -128,22 +131,22 @@ const WaveformView = ({
         </audio>
       </Flex>
       <Flex w={"100%"} justify={"space-between"} p={"1rem"}>
-        <Flex direction={"column"}>
+        <Flex>
+          <Button variant={"brandOutlined"} px={"1rem"}>
+            <Icon as={TbBracketsContainStart} />
+            In
+          </Button>
           <Button
             variant={"brandOutlined"}
             mb={"1rem"}
             onClick={() => PlayPauseAudio(myPeaks, isPlaying, setIsPlaying)}
           >
-            Play / Pause
+            <Icon as={HiPlayPause} />
           </Button>
-          <Flex>
-            <Button variant={"brandOutlined"} onClick={() => zoomIn(myPeaks)}>
-              Zoom in
-            </Button>
-            <Button variant={"brandOutlined"} onClick={() => zoomOut(myPeaks)}>
-              Zoom out
-            </Button>
-          </Flex>
+          <Button variant={"brandOutlined"} px={"1rem"}>
+            Out
+            <Icon as={TbBracketsContainEnd} />
+          </Button>
         </Flex>
         <Flex>
           <Button
