@@ -16,13 +16,16 @@ const WaveformView = ({
   const overviewWaveformRef = React.createRef<HTMLDivElement>();
   const audioElementRef = React.createRef<HTMLAudioElement>();
 
-  const play = (peaks: PeaksInstance | undefined) => {
-    peaks?.player.play();
-    console.log("PLaying audio");
-  };
-  const pause = (peaks: PeaksInstance | undefined) => {
-    peaks?.player.pause();
-    console.log("Pausing audio");
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const PlayPauseAudio = (peaks: PeaksInstance | undefined) => {
+    if (!isPlaying) {
+      peaks?.player.play();
+      setIsPlaying(true);
+    } else {
+      peaks?.player.pause();
+      setIsPlaying(false);
+    }
   };
 
   // state for peaks instance
@@ -170,11 +173,11 @@ const WaveformView = ({
       </Flex>
       <Flex w={"100%"} justify={"space-between"} p={"1rem"}>
         <Flex>
-          <Button variant={"brandOutlined"} onClick={() => play(myPeaks)}>
-            Play
-          </Button>
-          <Button variant={"brandOutlined"} onClick={() => pause(myPeaks)}>
-            Pause
+          <Button
+            variant={"brandOutlined"}
+            onClick={() => PlayPauseAudio(myPeaks)}
+          >
+            Play / Pause
           </Button>
         </Flex>
         <Flex>
