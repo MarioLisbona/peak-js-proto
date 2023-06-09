@@ -65,7 +65,7 @@ const OuterContainer = ({
           </Button>
         </Flex>
         <Flex
-          h={"250px"}
+          direction={"column"}
           w={"100%"}
           border={"2px"}
           borderColor={"brandDarkGray"}

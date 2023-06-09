@@ -3,6 +3,7 @@ import WaveformView from "./WaveFormView";
 import OuterContainer from "./OuterContainer";
 import { urls } from "../../data/UrlData";
 import { SelectAudioProps } from "@/app/types";
+import { Button, Flex } from "@chakra-ui/react";
 
 const WaveForm = () => {
   const [url, setUrl] = useState({

@@ -1,6 +1,6 @@
 "use client";
 
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Button } from "@chakra-ui/react";
 import React, { useCallback, useEffect, useState, useMemo } from "react";
 import Peaks, { PeaksInstance, PeaksOptions } from "peaks.js";
 import { OverviewContainer, ZoomviewContainer } from "./styled";
@@ -15,6 +15,15 @@ const WaveformView = ({
   const zoomviewWaveformRef = React.createRef<HTMLDivElement>();
   const overviewWaveformRef = React.createRef<HTMLDivElement>();
   const audioElementRef = React.createRef<HTMLAudioElement>();
+
+  const play = (peaks: PeaksInstance | undefined) => {
+    peaks?.player.play();
+    console.log("PLaying audio");
+  };
+  const pause = (peaks: PeaksInstance | undefined) => {
+    peaks?.player.pause();
+    console.log("Pausing audio");
+  };
 
   // state for peaks instance
   const [myPeaks, setMyPeaks] = useState<PeaksInstance | undefined>();
@@ -154,10 +163,24 @@ const WaveformView = ({
 
         <OverviewContainer ref={overviewWaveformRef}></OverviewContainer>
 
-        <audio ref={audioElementRef} controls>
+        <audio ref={audioElementRef} hidden>
           <source src={audioUrl} type={audioContentType} />
           Your browser does not support the audio element.
         </audio>
+      </Flex>
+      <Flex w={"100%"} justify={"space-between"} p={"1rem"}>
+        <Flex>
+          <Button variant={"brandOutlined"} onClick={() => play(myPeaks)}>
+            Play
+          </Button>
+          <Button variant={"brandOutlined"} onClick={() => pause(myPeaks)}>
+            Pause
+          </Button>
+        </Flex>
+        <Flex>
+          <Button variant={"brandOutlined"}>Add Segment</Button>
+          <Button variant={"brandOutlined"}>Log Segment</Button>
+        </Flex>
       </Flex>
     </>
   );
