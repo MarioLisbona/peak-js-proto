@@ -10,8 +10,8 @@ import {
   TableContainer,
   Text,
 } from "@chakra-ui/react";
-
 import { Segment } from "peaks.js";
+import convert from "convert-seconds";
 
 export default function DisplaySegments({ segments }: { segments: Segment[] }) {
   return (
@@ -33,8 +33,16 @@ export default function DisplaySegments({ segments }: { segments: Segment[] }) {
             segments.map((seg: Segment, idx: number) => (
               <Tr key={idx}>
                 <Td>{seg.id}</Td>
-                <Td isNumeric>{seg.startTime}</Td>
-                <Td isNumeric>{seg.endTime}</Td>
+                <Td isNumeric>{`${Math.floor(
+                  seg.startTime / 60 / 60
+                )}: ${Math.floor((seg.startTime / 60) % 60)}: ${Math.floor(
+                  seg.startTime % 60
+                )}`}</Td>
+                <Td isNumeric>{`${Math.floor(
+                  seg.endTime / 60 / 60
+                )}: ${Math.floor((seg.endTime / 60) % 60)}: ${Math.floor(
+                  seg.endTime % 60
+                )}`}</Td>
                 <Td isNumeric>{seg.endTime - seg.startTime}</Td>
               </Tr>
             ))}
