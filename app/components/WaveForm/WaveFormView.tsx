@@ -5,6 +5,7 @@ import React, { useCallback, useEffect, useState, useMemo } from "react";
 import Peaks, { PeaksInstance, PeaksOptions } from "peaks.js";
 import { OverviewContainer, ZoomviewContainer } from "./styled";
 import { UrlDataProps } from "@/app/data/UrlData";
+import { PlayPauseAudio } from "@/app/lib/waveform-utils";
 
 const WaveformView = ({
   audioUrl,
@@ -16,17 +17,7 @@ const WaveformView = ({
   const overviewWaveformRef = React.createRef<HTMLDivElement>();
   const audioElementRef = React.createRef<HTMLAudioElement>();
 
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  const PlayPauseAudio = (peaks: PeaksInstance | undefined) => {
-    if (!isPlaying) {
-      peaks?.player.play();
-      setIsPlaying(true);
-    } else {
-      peaks?.player.pause();
-      setIsPlaying(false);
-    }
-  };
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   // state for peaks instance
   const [myPeaks, setMyPeaks] = useState<PeaksInstance | undefined>();
@@ -175,7 +166,7 @@ const WaveformView = ({
         <Flex>
           <Button
             variant={"brandOutlined"}
-            onClick={() => PlayPauseAudio(myPeaks)}
+            onClick={() => PlayPauseAudio(myPeaks, isPlaying, setIsPlaying)}
           >
             Play / Pause
           </Button>
