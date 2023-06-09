@@ -1,5 +1,6 @@
 import { PeaksInstance } from "peaks.js";
 import { useState } from "react";
+import { SegmentProps } from "@/app/types";
 
 export const PlayPauseAudio = (
   peaks: PeaksInstance | undefined,
