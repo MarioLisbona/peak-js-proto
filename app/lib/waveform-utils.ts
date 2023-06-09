@@ -1,4 +1,4 @@
-import { PeaksInstance } from "peaks.js";
+import { PeaksInstance, Segment } from "peaks.js";
 import { useState } from "react";
 import { SegmentProps } from "@/app/types";
 
@@ -42,8 +42,9 @@ export const addSegment = (
   setSegmentNum(segmentNum + 1);
 };
 
-export const getAllSegments = (peaks: PeaksInstance | undefined) => {
-  const segments = peaks?.segments.getSegments();
-
-  console.log(segments);
+export const getAllSegments = (
+  peaks: PeaksInstance | undefined,
+  setSegments: React.Dispatch<React.SetStateAction<Segment[]>>
+) => {
+  setSegments(peaks.segments.getSegments());
 };

@@ -4,6 +4,7 @@ import OuterContainer from "./OuterContainer";
 import { urls } from "../../data/UrlData";
 import { SelectAudioProps } from "@/app/types";
 import { Button, Flex } from "@chakra-ui/react";
+import Table from "../segments";
 
 const WaveForm = () => {
   const [url, setUrl] = useState({

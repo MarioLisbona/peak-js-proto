@@ -2,7 +2,7 @@
 
 import { Flex, Button } from "@chakra-ui/react";
 import React, { useCallback, useEffect, useState, useMemo } from "react";
-import Peaks, { PeaksInstance, PeaksOptions } from "peaks.js";
+import Peaks, { PeaksInstance, PeaksOptions, Segment } from "peaks.js";
 import { OverviewContainer, ZoomviewContainer } from "./styled";
 import { UrlDataProps } from "@/app/data/UrlData";
 import { SegmentProps } from "@/app/types";
@@ -13,6 +13,7 @@ import {
   addSegment,
   getAllSegments,
 } from "@/app/lib/waveform-utils";
+import DisplaySegments from "../segments";
 
 const WaveformView = ({
   audioUrl,
@@ -27,6 +28,7 @@ const WaveformView = ({
 
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [segmentNum, setSegmentNum] = useState<number>(1);
+  const [segments, setSegments] = useState<Segment[]>([]);
 
   // state for peaks instance
   const [myPeaks, setMyPeaks] = useState<PeaksInstance | undefined>();
@@ -163,6 +165,7 @@ const WaveformView = ({
         align={"center"}
         width={"100%"}
         direction={"column"}
+        p={"1rem"}
       >
         <ZoomviewContainer ref={zoomviewWaveformRef}></ZoomviewContainer>
 
@@ -202,11 +205,20 @@ const WaveformView = ({
           </Button>
           <Button
             variant={"brandOutlined"}
-            onClick={() => getAllSegments(myPeaks)}
+            onClick={() => getAllSegments(myPeaks, setSegments)}
           >
             Log Segments
           </Button>
         </Flex>
+      </Flex>
+      <Flex
+        justify={"center"}
+        align={"center"}
+        width={"100%"}
+        direction={"column"}
+        p={"1rem"}
+      >
+        <DisplaySegments segments={segments} />
       </Flex>
     </>
   );
