@@ -5,18 +5,24 @@ import React, { useCallback, useEffect, useState, useMemo } from "react";
 import Peaks, { PeaksInstance, PeaksOptions } from "peaks.js";
 import { OverviewContainer, ZoomviewContainer } from "./styled";
 import { UrlDataProps } from "@/app/data/UrlData";
+import { zoomviewConfig, overviewConfig } from "@/app/data/ContainerConfigData";
 
 const WaveformView = ({
   audioUrl,
   audioContentType,
   waveformDataUrl,
 }: UrlDataProps) => {
+  //create ref's to peaks.js containers
   const zoomviewWaveformRef = React.createRef<HTMLDivElement>();
   const overviewWaveformRef = React.createRef<HTMLDivElement>();
   const audioElementRef = React.createRef<HTMLAudioElement>();
 
+  // state for peaks instance
   const [myPeaks, setMyPeaks] = useState<PeaksInstance | undefined>();
 
+  // create function to create instance of peaks
+  // useCallback means this will only render a single instance of peaks
+  // audio changes are implemented on this instance of peaks using hte .setSource method
   const initPeaks = useCallback(() => {
     const options: PeaksOptions = {
       overview: {
@@ -55,10 +61,13 @@ const WaveformView = ({
         timeLabelPrecision: 2,
 
         // Mouse-wheel mode: either 'none' or 'scroll'
-        wheelMode: "scroll",
+        // wheelMode: "scroll",
       },
+
+      //assigning the current audio element
       mediaElement: audioElementRef.current!,
 
+      //assigning the precomputed waveform data
       dataUri: {
         arraybuffer: waveformDataUrl,
       },
@@ -77,39 +86,57 @@ const WaveformView = ({
 
       // Keyboard nudge increment in seconds (left arrow/right arrow)
       nudgeIncrement: 0.01,
-
-      createSegmentMarker: undefined,
-      createSegmentLabel: undefined,
-      createPointMarker: undefined,
     };
 
+    //assigning the source for the audio element
     audioElementRef.current!.src = audioUrl;
 
+    //If there is an existing peaks instance, call destroy method and set undefined for myPeaks
     if (myPeaks) {
       myPeaks.destroy();
       setMyPeaks(undefined);
     }
 
+    //create an instance of peaks
     Peaks.init(options, (err, peaks) => {
       if (err) {
         console.error("Failed to initialize Peaks instance: " + err.message);
         return;
       }
 
+      //set instance of peaks to myPeaks state
       setMyPeaks(peaks);
 
+      //set the amplitude scale for the zoomview container
       const view = peaks?.views.getView("zoomview");
       view?.setAmplitudeScale(0.8);
 
+      //if there is no instance of peaks, return
       if (!peaks) {
         return;
       }
     });
-  }, [audioUrl]);
+  }, []);
 
+  //call initi peaks on initial mount of WaveForm component
   useEffect(() => {
     initPeaks();
-  }, [initPeaks]);
+  }, []);
+
+  //call .setSource methood to change audio source and waveform on peaks instance every time the audioUrl is changed
+  //This avoids creating a new instnace of peaks everytime the audio changes
+  useEffect(() => {
+    const options = {
+      mediaUrl: audioUrl,
+      dataUri: {
+        arraybuffer: waveformDataUrl,
+      },
+    };
+
+    myPeaks?.setSource(options, (err) => {
+      console.error("Failed to initialize Peaks instance: " + err.message);
+    });
+  }, [audioUrl]);
 
   return (
     <>
