@@ -13,8 +13,8 @@ import {
 } from "@/app/lib/waveform-config";
 import {
   PlayPauseAudio,
-  zoomIn,
-  zoomOut,
+  markInPoint,
+  markOutPoint,
   addSegment,
   getAllSegments,
 } from "@/app/lib/waveform-utils";
@@ -28,15 +28,17 @@ const WaveformView = ({
   audioContentType,
   waveformDataUrl,
 }: UrlDataProps) => {
-  console.log("waveform component.tsx", audioUrl);
   //create ref's to peaks.js containers
   const zoomviewWaveformRef = React.createRef<HTMLDivElement>();
   const overviewWaveformRef = React.createRef<HTMLDivElement>();
   const audioElementRef = React.createRef<HTMLAudioElement>();
 
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [segmentNum, setSegmentNum] = useState<number>(1);
   const [segments, setSegments] = useState<Segment[]>([]);
+  const [inPoint, setInPoint] = useState<number | undefined>(undefined);
+  const [outPoint, setOutPoint] = useState<number | undefined>(undefined);
+
+  console.log("Waveform component", { inPoint, outPoint });
 
   // state for peaks instance
   const [myPeaks, setMyPeaks] = useState<PeaksInstance | undefined>();
@@ -108,8 +110,6 @@ const WaveformView = ({
         return;
       }
     });
-
-    setSegmentNum(1);
   }, [audioUrl]);
 
   return (
@@ -132,7 +132,11 @@ const WaveformView = ({
       </Flex>
       <Flex w={"100%"} align={"center"} p={"1rem"} direction={"column"}>
         <Flex>
-          <Button variant={"brandOutlined"} px={"1rem"}>
+          <Button
+            variant={"brandOutlined"}
+            px={"1rem"}
+            onClick={() => markInPoint(myPeaks, setInPoint)}
+          >
             <Icon as={TbBracketsContainStart} />
             In
           </Button>
@@ -143,7 +147,11 @@ const WaveformView = ({
           >
             <Icon as={HiPlayPause} />
           </Button>
-          <Button variant={"brandOutlined"} px={"1rem"}>
+          <Button
+            variant={"brandOutlined"}
+            px={"1rem"}
+            onClick={() => markOutPoint(myPeaks, setOutPoint)}
+          >
             Out
             <Icon as={TbBracketsContainEnd} />
           </Button>
@@ -151,15 +159,13 @@ const WaveformView = ({
         <Flex>
           <Button
             variant={"brandOutlined"}
-            onClick={() =>
-              addSegment(myPeaks, audioUrl, segmentNum, setSegmentNum)
-            }
+            onClick={() => addSegment(myPeaks, audioUrl, segments, setSegments)}
           >
             Add Segment
           </Button>
           <Button
             variant={"brandOutlined"}
-            onClick={() => getAllSegments(myPeaks, setSegments)}
+            onClick={() => getAllSegments(myPeaks, segments, setSegments)}
           >
             Log Segments
           </Button>
