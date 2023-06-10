@@ -130,7 +130,7 @@ const WaveformView = ({
           Your browser does not support the audio element.
         </audio>
       </Flex>
-      <Flex w={"100%"} justify={"space-between"} p={"1rem"}>
+      <Flex w={"100%"} align={"center"} p={"1rem"} direction={"column"}>
         <Flex>
           <Button variant={"brandOutlined"} px={"1rem"}>
             <Icon as={TbBracketsContainStart} />
