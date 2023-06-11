@@ -18,16 +18,38 @@ export const PlayPauseAudio = (
 
 export const markInPoint = (
   peaks: PeaksInstance | undefined,
-  setInPoint: React.Dispatch<React.SetStateAction<number | undefined>>
+  inPoint: number,
+  setInPoint: React.Dispatch<React.SetStateAction<number>>,
+  outPoint: number,
+  setOutPoint: React.Dispatch<React.SetStateAction<number>>
 ) => {
+  if (peaks!.player.getCurrentTime() < outPoint && outPoint > 0) {
+    setInPoint(peaks!.player.getCurrentTime());
+  } else {
+    setOutPoint(0);
+    setInPoint(peaks!.player.getCurrentTime());
+  }
   setInPoint(peaks!.player.getCurrentTime());
 };
 
 export const markOutPoint = (
   peaks: PeaksInstance | undefined,
-  setOutPoint: React.Dispatch<React.SetStateAction<number | undefined>>
+  inPoint: number,
+  setInPoint: React.Dispatch<React.SetStateAction<number>>,
+  outPoint: number,
+  setOutPoint: React.Dispatch<React.SetStateAction<number>>
 ) => {
-  setOutPoint(peaks!.player.getCurrentTime());
+  if (peaks!.player.getCurrentTime() < inPoint && inPoint > 0) {
+    setOutPoint(0);
+    console.log({
+      message: "Outpoint needs to be after inpoint",
+      playhead: peaks!.player.getCurrentTime(),
+      inPoint,
+      outPoint,
+    });
+  } else {
+    setOutPoint(peaks!.player.getCurrentTime());
+  }
 };
 
 export const addSegment = (

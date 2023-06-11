@@ -35,13 +35,13 @@ const WaveformView = ({
 
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [segments, setSegments] = useState<Segment[]>([]);
-  const [inPoint, setInPoint] = useState<number | undefined>(undefined);
-  const [outPoint, setOutPoint] = useState<number | undefined>(undefined);
-
-  console.log("Waveform component", { inPoint, outPoint });
+  const [inPoint, setInPoint] = useState<number>(0);
+  const [outPoint, setOutPoint] = useState<number>(0);
 
   // state for peaks instance
   const [myPeaks, setMyPeaks] = useState<PeaksInstance | undefined>();
+
+  console.log("Waveform component", { inPoint, outPoint });
 
   // create function to create instance of peaks
   // useCallback means this will only render a single instance of peaks
@@ -135,7 +135,9 @@ const WaveformView = ({
           <Button
             variant={"brandOutlined"}
             px={"1rem"}
-            onClick={() => markInPoint(myPeaks, setInPoint)}
+            onClick={() =>
+              markInPoint(myPeaks, inPoint, setInPoint, outPoint, setOutPoint)
+            }
           >
             <Icon as={TbBracketsContainStart} />
             In
@@ -150,7 +152,9 @@ const WaveformView = ({
           <Button
             variant={"brandOutlined"}
             px={"1rem"}
-            onClick={() => markOutPoint(myPeaks, setOutPoint)}
+            onClick={() =>
+              markOutPoint(myPeaks, inPoint, setInPoint, outPoint, setOutPoint)
+            }
           >
             Out
             <Icon as={TbBracketsContainEnd} />
