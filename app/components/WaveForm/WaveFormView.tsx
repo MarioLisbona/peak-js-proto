@@ -163,7 +163,16 @@ const WaveformView = ({
         <Flex>
           <Button
             variant={"brandOutlined"}
-            onClick={() => addSegment(myPeaks, audioUrl, segments, setSegments)}
+            onClick={() =>
+              addSegment(
+                myPeaks,
+                audioUrl,
+                segments,
+                setSegments,
+                inPoint,
+                outPoint
+              )
+            }
           >
             Add Segment
           </Button>
