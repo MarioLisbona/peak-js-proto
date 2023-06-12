@@ -14,6 +14,16 @@ import { Segment } from "peaks.js";
 import format from "format-duration";
 
 export default function DisplaySegments({ segments }: { segments: Segment[] }) {
+  const newSegments = segments.map((segment) => ({
+    id: segment.id,
+    startTime: segment.startTime,
+    endTime: segment.endTime,
+    duration: segment.endTime - segment.startTime,
+    customAttribute: segment.customAttribute,
+  }));
+
+  console.log("original segments array", segments);
+  console.log("New segments array", newSegments);
   return (
     <TableContainer>
       <Table variant="simple">
